@@ -8,7 +8,8 @@ var   b2Vec2 = Box2D.Common.Math.b2Vec2
  , b2PolygonShape = Box2D.Collision.Shapes.b2PolygonShape
  , b2CircleShape = Box2D.Collision.Shapes.b2CircleShape
  , b2DebugDraw = Box2D.Dynamics.b2DebugDraw
- , b2RevoluteJointDef = Box2D.Dynamics.Joints.b2RevoluteJointDef
+ , b2RevoluteJointDef = Box2D.Dynamics.Joints.b2RevoluteJointDef,
+   b2PrismaticJointDef = Box2D.Dynamics.Joints.b2PrismaticJointDef
    ;
 
 function bTest(intervalRate, adaptive, width, height, scale) {
@@ -21,7 +22,7 @@ function bTest(intervalRate, adaptive, width, height, scale) {
   this.bodiesMap = {};
 
   this.world = new b2World(
-        new b2Vec2(0, 10)    //gravity
+        new b2Vec2(0, 3)    //gravity
      ,  true                 //allow sleep
   );
 
@@ -80,12 +81,17 @@ bTest.prototype.setBodies = function(bodyEntities, enableBullet) {
     
     for(var id in bodyEntities) {
         var entity = bodyEntities[id];
-        
-        if (entity.id == 'ground') {
+
+
+        console.log(entity.id);
+        console.log(entity.id.indexOf('fixed'));
+        if (entity.id.indexOf('fixed') > -1) {
             bodyDef.type = b2Body.b2_staticBody;
         } else {
             bodyDef.type = b2Body.b2_dynamicBody;
         }
+
+
         
         bodyDef.position.x = entity.x;
         bodyDef.position.y = entity.y;
@@ -93,7 +99,12 @@ bTest.prototype.setBodies = function(bodyEntities, enableBullet) {
         bodyDef.angle = entity.angle;
         if (enableBullet && entity.radius) bodyDef.bullet = true;
         var body = this.registerBody(bodyDef);
-        
+
+
+        if(entity.id.indexOf('sensor') > 0) {
+            this.fixDef.isSensor = true;
+        }
+
         if (entity.radius) {
             this.fixDef.shape = new b2CircleShape(entity.radius);
             body.CreateFixture(this.fixDef);
@@ -135,6 +146,22 @@ bTest.prototype.addRevoluteJoint = function(body1Id, body2Id, params) {
       joint.maxMotorTorque = params.maxMotorTorque;
       joint.enableMotor = true;
     }
+    this.world.CreateJoint(joint);
+}
+
+
+bTest.prototype.addPrismaticJoint = function(body1Id, body2Id, params) {
+    var body1 = this.bodiesMap[body1Id];
+    var body2 = this.bodiesMap[body2Id];
+    var joint = new b2PrismaticJointDef();
+    joint.Initialize(body1, body2, body1.GetWorldCenter(), new b2Vec2(0, 10));
+    joint.lowerTranslation = 5.0;
+    joint.upperTranslation = 0;
+    joint.enableLimit = true;
+    joint.maxMotorForce = 2.0;
+    joint.motorSpeed = 0.0;
+    joint.enableMotor = false;
+    joint.collideConnected = true;
     this.world.CreateJoint(joint);
 }
 
