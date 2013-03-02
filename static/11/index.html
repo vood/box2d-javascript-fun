@@ -18,24 +18,35 @@ limitations under the License.
 <head>
     <meta charset="utf-8">
     <title>Box2D Javascript Fun : 11 : Box2D with Impulse and HTML5 Canvas</title>
-    <link rel="author" href="http://profiles.google.com/sethladd">
     <script src="Box2D.js"></script>
     <script src="bTest.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <meta name="viewport" content="initial-scale = 1.0,maximum-scale = 1.0,width=480"/>
+    <script src="jquery.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.3.0/jquery.mobile-1.3.0.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-touch-fullscreen" content="yes"/>
     <style>
         body {
+            margin: 0px;
+            padding: 0px;
+            -webkit-user-select: none;
             -webkit-transform: translateZ(0);
+        }
+
+        #push {
+            position: absolute;
+            top: 355px;
+            left: 245px;
+            padding: 20px 15px;
+            border-radius: 60px;
+            border: 4px red solid;
+            -webkit-user-select: none;
         }
     </style>
 </head>
 <body>
 <canvas id="c0" width="480" height="800" style="border: 1px solid black"></canvas>
-<div>
-    <button id="restart">Restart</button>
-    <button id="push">Push</button>
-</div>
-
+<button id="push">Push</button>
 <script>
     // http://paulirish.com/2011/requestanimationframe-for-smart-animating/
     window.requestAnimFrame = (function () {
@@ -56,7 +67,7 @@ var powerElem = document.getElementById('power');
 var angleElem = document.getElementById('angle');
 var bulletElem = document.getElementById('bullet');
 
-var SCALE = 30;
+var SCALE = 20;
 var NULL_CENTER = {x:null, y:null};
 
 function Entity(id, x, y, angle, center, color) {
@@ -218,18 +229,18 @@ var initialState = [
 
     {id:"ground-left-fixed", x:ctx.canvas.width / 2 / SCALE - 5, y:ctx.canvas.height / SCALE, angle:(15 * Math.PI) / 180, halfHeight:0.5, halfWidth:ctx.canvas.width / SCALE, color:'yellow'},
     {id:"ground-right-fixed", x:ctx.canvas.width / 6 / SCALE, y:ctx.canvas.height / SCALE, angle:-(15 * Math.PI) / 180, halfHeight:0.5, halfWidth:ctx.canvas.width / SCALE, color:'yellow'},
-    {id:"ball1", x:2, y:18, radius:0.5},
-    {id:"ball2", x:4, y:18, radius:0.5},
-    {id:"ball3", x:6, y:18, radius:0.5},
-    {id:"ball4", x:8, y:18, radius:0.5},
-    {id:"ball5", x:10, y:18, radius:0.5},
-    {id:"ball6", x:12, y:18, radius:0.5},
-    {id:"ball7", x:2, y:18, radius:0.5},
-    {id:"ball8", x:4, y:18, radius:0.5},
-    {id:"ball9", x:6, y:18, radius:0.5},
-    {id:"ball10", x:8, y:18, radius:0.5},
-    {id:"ball11", x:10, y:18, radius:0.5},
-    {id:"ball12", x:12, y:18, radius:0.5},
+    {id:"ball1", x:2, y:14, radius:0.5},
+    {id:"ball2", x:3, y:18, radius:0.5},
+    {id:"ball3", x:4, y:14, radius:0.5},
+    {id:"ball4", x:5, y:18, radius:0.5},
+    {id:"ball5", x:6, y:14, radius:0.5},
+    {id:"ball6", x:7, y:18, radius:0.5},
+    {id:"ball7", x:8, y:14, radius:0.5},
+    {id:"ball8", x:9, y:18, radius:0.5},
+    {id:"ball9", x:10, y:14, radius:0.5},
+    {id:"ball10", x:11, y:18, radius:0.5},
+    {id:"ball11", x:12, y:14, radius:0.5},
+    {id:"ball12", x:13, y:18, radius:0.5},
 
 
     {id:"nail1-fixed-sensor", x:9, y:ctx.canvas.height / SCALE - 10, radius:0.2, color:'red'},
@@ -295,7 +306,7 @@ function init() {
         }
 
         if (contact.m_fixtureB.m_body.m_userData.indexOf('stopper') > -1
-            && contact.m_fixtureA.IsSensor()) {
+                && contact.m_fixtureA.IsSensor()) {
             contact.m_fixtureA.m_body.SetType(b2Body.b2_staticBody);
         }
 
@@ -337,18 +348,26 @@ document.addEventListener("DOMContentLoaded", function () {
 }, false);
 
 $(document).ready(function () {
-    $('#push').mousedown(function () {
+
+    $('#push').bind('mousedown touchstart', function () {
 
         controller.A = new b2Vec2(Math.random(), -15);
     });
 
-    $('body').mouseup(function () {
+    $('body').bind('mouseup touchend', function () {
         controller.A = new b2Vec2(0, 0);
     });
 
+    //if (window.navigator.msPointerEnabled) {
+        document.getElementById('push').addEventListener("MSPointerDown", function () {
+            controller.A = new b2Vec2(Math.random(), -15);
+        }, false);
+        document.getElementsByTagName('body')[0].addEventListener("MSPointerUp", function () {
+            controller.A = new b2Vec2(0, 0);
+        }, false);
+    //}
+
 });
-
-
 </script>
 </body>
 </html>
