@@ -21,7 +21,7 @@ limitations under the License.
     <link rel="author" href="http://profiles.google.com/sethladd">
     <script src="Box2D.js"></script>
     <script src="bTest.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="jquery.min.js"></script>
     <meta name="viewport" content="initial-scale = 1.0,maximum-scale = 1.0,width=480"/>
     <style>
         body {
@@ -30,6 +30,11 @@ limitations under the License.
     </style>
 </head>
 <body>
+
+<div>
+
+</div>
+
 <canvas id="c0" width="480" height="800" style="border: 1px solid black"></canvas>
 <div>
     <button id="restart">Restart</button>
@@ -37,6 +42,8 @@ limitations under the License.
 </div>
 
 <script>
+
+
     // http://paulirish.com/2011/requestanimationframe-for-smart-animating/
     window.requestAnimFrame = (function () {
         return  window.requestAnimationFrame ||
@@ -197,10 +204,6 @@ function update(animStart) {
     }
 }
 
-var ctx = document.getElementById("c0").getContext("2d");
-var canvasWidth = ctx.canvas.width;
-var canvasHeight = ctx.canvas.height;
-
 function draw() {
     //console.log("d");
 
@@ -211,43 +214,49 @@ function draw() {
     }
 }
 
-var initialState = [
-    {id:"top-fixed", x:0, y:0, angle:0, halfHeight:0.5, halfWidth:ctx.canvas.width / SCALE, color:'yellow'},
-    {id:"left-fixed", x:0, y:0, angle:Math.PI / 2, halfHeight:0.5, halfWidth:ctx.canvas.height / SCALE, color:'yellow'},
-    {id:"right-fixed", x:ctx.canvas.width / SCALE, y:0, angle:Math.PI / 2, halfHeight:0.5, halfWidth:ctx.canvas.height / SCALE, color:'yellow'},
-
-    {id:"ground-left-fixed", x:ctx.canvas.width / 2 / SCALE - 5, y:ctx.canvas.height / SCALE, angle:(15 * Math.PI) / 180, halfHeight:0.5, halfWidth:ctx.canvas.width / SCALE, color:'yellow'},
-    {id:"ground-right-fixed", x:ctx.canvas.width / 6 / SCALE, y:ctx.canvas.height / SCALE, angle:-(15 * Math.PI) / 180, halfHeight:0.5, halfWidth:ctx.canvas.width / SCALE, color:'yellow'},
-    {id:"ball1", x:2, y:18, radius:0.5},
-    {id:"ball2", x:4, y:18, radius:0.5},
-    {id:"ball3", x:6, y:18, radius:0.5},
-    {id:"ball4", x:8, y:18, radius:0.5},
-    {id:"ball5", x:10, y:18, radius:0.5},
-    {id:"ball6", x:12, y:18, radius:0.5},
-    {id:"ball7", x:2, y:18, radius:0.5},
-    {id:"ball8", x:4, y:18, radius:0.5},
-    {id:"ball9", x:6, y:18, radius:0.5},
-    {id:"ball10", x:8, y:18, radius:0.5},
-    {id:"ball11", x:10, y:18, radius:0.5},
-    {id:"ball12", x:12, y:18, radius:0.5},
-
-
-    {id:"nail1-fixed-sensor", x:9, y:ctx.canvas.height / SCALE - 10, radius:0.2, color:'red'},
-    {id:"nail2-fixed-sensor", x:12, y:ctx.canvas.height / SCALE - 12, radius:0.2, color:'red'},
-    {id:"stopper1-fixed-sensor", x:9, y:ctx.canvas.height / SCALE - 5, radius:0.2, color:'red'},
-    {id:"stopper2-fixed-sensor", x:12, y:ctx.canvas.height / SCALE - 7, radius:0.2, color:'red'}
-];
-
-var running = true;
-var impulseTimeout = null;
-var initTimeout = null;
-var particles = [];
-var controller = null;
-
-var stack1 = 0;
-var stack2 = 0;
 
 function init() {
+
+    ctx = document.getElementById("c0").getContext("2d");
+    canvasWidth = ctx.canvas.width;
+    canvasHeight = ctx.canvas.height;
+
+    initialState = [
+        {id:"top-fixed", x:0, y:0, angle:0, halfHeight:0.5, halfWidth:ctx.canvas.width / SCALE, color:'yellow'},
+        {id:"left-fixed", x:0, y:0, angle:Math.PI / 2, halfHeight:0.5, halfWidth:ctx.canvas.height / SCALE, color:'yellow'},
+        {id:"right-fixed", x:ctx.canvas.width / SCALE, y:0, angle:Math.PI / 2, halfHeight:0.5, halfWidth:ctx.canvas.height / SCALE, color:'yellow'},
+
+        {id:"ground-left-fixed", x:ctx.canvas.width / 2 / SCALE - 5, y:ctx.canvas.height / SCALE, angle:(15 * Math.PI) / 180, halfHeight:0.5, halfWidth:ctx.canvas.width / SCALE, color:'yellow'},
+        {id:"ground-right-fixed", x:ctx.canvas.width / 6 / SCALE, y:ctx.canvas.height / SCALE, angle:-(15 * Math.PI) / 180, halfHeight:0.5, halfWidth:ctx.canvas.width / SCALE, color:'yellow'},
+        {id:"ball1", x:2, y:18, radius:0.5},
+        {id:"ball2", x:4, y:18, radius:0.5},
+        {id:"ball3", x:6, y:18, radius:0.5},
+        {id:"ball4", x:8, y:18, radius:0.5},
+        {id:"ball5", x:10, y:18, radius:0.5},
+        {id:"ball6", x:12, y:18, radius:0.5},
+        {id:"ball7", x:2, y:18, radius:0.5},
+        {id:"ball8", x:4, y:18, radius:0.5},
+        {id:"ball9", x:6, y:18, radius:0.5},
+        {id:"ball10", x:8, y:18, radius:0.5},
+        {id:"ball11", x:10, y:18, radius:0.5},
+        {id:"ball12", x:12, y:18, radius:0.5},
+
+
+        {id:"nail1-fixed-sensor", x:9, y:ctx.canvas.height / SCALE - 10, radius:0.2, color:'red'},
+        {id:"nail2-fixed-sensor", x:12, y:ctx.canvas.height / SCALE - 12, radius:0.2, color:'red'},
+        {id:"stopper1-fixed-sensor", x:9, y:ctx.canvas.height / SCALE - 5, radius:0.2, color:'red'},
+        {id:"stopper2-fixed-sensor", x:12, y:ctx.canvas.height / SCALE - 7, radius:0.2, color:'red'}
+    ];
+
+    var running = true;
+    var impulseTimeout = null;
+    var initTimeout = null;
+    var particles = [];
+    var controller = null;
+
+    var stack1 = 0;
+    var stack2 = 0;
+
     for (var i = 0; i < initialState.length; i++) {
         world[initialState[i].id] = Entity.build(initialState[i]);
     }
@@ -309,6 +318,15 @@ function init() {
     box.world.AddController(controller);
 
 
+    $('#push').mousedown(function () {
+
+        controller.A = new b2Vec2(Math.random(), -15);
+    });
+
+    $('body').mouseup(function () {
+        controller.A = new b2Vec2(0, 0);
+    });
+
 //      impulseTimeout = setTimeout(function() {
 //        box.applyImpulse("ball1", parseInt(angleElem.value), parseInt(powerElem.value));
 //      }, 11000);
@@ -321,6 +339,10 @@ function init() {
 var restart = false;
 
 document.addEventListener("DOMContentLoaded", function () {
+
+
+     //ripple('retro-ring-toss-480x800.jpg', document.getElementById('container'), init);
+
     init();
 
     (function loop(animStart) {
@@ -337,14 +359,7 @@ document.addEventListener("DOMContentLoaded", function () {
 }, false);
 
 $(document).ready(function () {
-    $('#push').mousedown(function () {
-
-        controller.A = new b2Vec2(Math.random(), -15);
-    });
-
-    $('body').mouseup(function () {
-        controller.A = new b2Vec2(0, 0);
-    });
+    
 
 });
 
