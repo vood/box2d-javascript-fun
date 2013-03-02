@@ -94,7 +94,7 @@ var ripple = (function(img_src, container, callback){
 	
 	function disturb(dx, dy) {
 
-		console.log(dx + " : " + dy);
+		//console.log(dx + " : " + dy);
 
 		dx <<= 0;
 		dy <<= 0;

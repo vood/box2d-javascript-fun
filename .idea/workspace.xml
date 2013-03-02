@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="92b29903-3c3d-4d16-b274-245fee61fc1e" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/11/bTest.js" afterPath="$PROJECT_DIR$/static/11/bTest.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/11/index.html" afterPath="$PROJECT_DIR$/static/11/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/11/ripple.js" afterPath="$PROJECT_DIR$/static/11/ripple.js" />
     </list>
     <ignored path="box2d-javascript-fun.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -26,8 +27,19 @@
       <file leaf-file-name="index.html" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/static/11/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="435" column="81" selection-start="13442" selection-end="13442" vertical-scroll-proportion="3.8592234">
+            <state line="266" column="196" selection-start="8039" selection-end="8039" vertical-scroll-proportion="0.4935065">
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Box2D.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/static/11/Box2D.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="7665" column="26" selection-start="295652" selection-end="295652" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="n#!!doc" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -37,10 +49,7 @@
           <provider selected="true" editor-type-id="text-editor">
             <state line="4" column="27939" selection-start="92161" selection-end="92161" vertical-scroll-proportion="0.0">
               <folding>
-                <marker date="1362228360000" expanded="true" signature="32230:64986" placeholder="{...}" />
-                <marker date="1362228360000" expanded="true" signature="32230:64621" placeholder="{...}" />
-                <marker date="1362228360000" expanded="true" signature="32230:64325" placeholder="{...}" />
-                <marker date="1362228360000" expanded="true" signature="32230:64223" placeholder="{...}" />
+                <element signature="n#!!doc" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -49,16 +58,16 @@
       <file leaf-file-name="bTest.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/static/11/bTest.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="2" column="3" selection-start="83" selection-end="83" vertical-scroll-proportion="0.0">
+            <state line="86" column="28" selection-start="2825" selection-end="2826" vertical-scroll-proportion="-5.3846154">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Box2D.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static/11/Box2D.js">
+      <file leaf-file-name="ripple.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/static/11/ripple.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="5079" column="39" selection-start="191344" selection-end="191352" vertical-scroll-proportion="598.2308">
+            <state line="96" column="10" selection-start="1837" selection-end="1837" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -77,8 +86,9 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/static/11/bTest.js" />
         <option value="$PROJECT_DIR$/static/11/jquery.min.js" />
+        <option value="$PROJECT_DIR$/static/11/bTest.js" />
+        <option value="$PROJECT_DIR$/static/11/ripple.js" />
         <option value="$PROJECT_DIR$/static/11/index.html" />
       </list>
     </option>
@@ -290,7 +300,7 @@
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32909605" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32909605" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
@@ -363,13 +373,6 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/static/Box2d.min.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="87" selection-start="9372" selection-end="9372" vertical-scroll-proportion="0.33333334">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/static/09/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="226" column="6" selection-start="7524" selection-end="7599" vertical-scroll-proportion="0.64415586">
@@ -393,35 +396,48 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/static/11/jquery.min.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="4" column="27939" selection-start="92161" selection-end="92161" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/11/ripple.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="96" column="10" selection-start="1837" selection-end="1837" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/Box2d.min.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="292" column="168" selection-start="147159" selection-end="147159" vertical-scroll-proportion="0.33333334">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/static/11/Box2D.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="5079" column="39" selection-start="191344" selection-end="191352" vertical-scroll-proportion="598.2308">
-          <folding />
+        <state line="7665" column="26" selection-start="295652" selection-end="295652" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/static/11/bTest.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="3" selection-start="83" selection-end="83" vertical-scroll-proportion="0.0">
+        <state line="86" column="28" selection-start="2825" selection-end="2826" vertical-scroll-proportion="-5.3846154">
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/11/jquery.min.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="27939" selection-start="92161" selection-end="92161" vertical-scroll-proportion="0.0">
-          <folding>
-            <marker date="1362228360000" expanded="true" signature="32230:64986" placeholder="{...}" />
-            <marker date="1362228360000" expanded="true" signature="32230:64621" placeholder="{...}" />
-            <marker date="1362228360000" expanded="true" signature="32230:64325" placeholder="{...}" />
-            <marker date="1362228360000" expanded="true" signature="32230:64223" placeholder="{...}" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/static/11/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="435" column="81" selection-start="13442" selection-end="13442" vertical-scroll-proportion="3.8592234">
+        <state line="266" column="196" selection-start="8039" selection-end="8039" vertical-scroll-proportion="0.4935065">
           <folding />
         </state>
       </provider>

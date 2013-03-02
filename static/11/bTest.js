@@ -83,8 +83,8 @@ bTest.prototype.setBodies = function(bodyEntities, enableBullet) {
         var entity = bodyEntities[id];
 
 
-        console.log(entity.id);
-        console.log(entity.id.indexOf('fixed'));
+        //console.log(entity.id);
+        //console.log(entity.id.indexOf('fixed'));
         if (entity.id.indexOf('fixed') > -1) {
             bodyDef.type = b2Body.b2_staticBody;
         } else {

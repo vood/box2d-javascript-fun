@@ -64,13 +64,10 @@ limitations under the License.
         #push {
             position: relative;
             z-index: 101;
-        }
-
-        #push {
-            position: relative;
-            z-index: 101;
-            top: 760px;
+            top: 730px;
             left: 400px;
+            text-indent: 11110px;
+            width: 62px;
         }
 
     </style>
@@ -246,7 +243,7 @@ function update(animStart) {
 }
 
 function draw() {
-    //console.log("d");
+    ////console.log("d");
 
     ctx.clearRect(0, 0, canvasWidth, canvasHeight);
     for (var id in world) {
@@ -263,24 +260,24 @@ function init() {
     canvasHeight = ctx.canvas.height;
 
     initialState = [
-        {id:"top-fixed", x:0, y:0, angle:0, halfHeight:0.5, halfWidth:ctx.canvas.width / SCALE, color:'yellow'},
-        {id:"left-fixed", x:0, y:0, angle:Math.PI / 2, halfHeight:0.5, halfWidth:ctx.canvas.height / SCALE, color:'yellow'},
-        {id:"right-fixed", x:ctx.canvas.width / SCALE, y:0, angle:Math.PI / 2, halfHeight:0.5, halfWidth:ctx.canvas.height / SCALE, color:'yellow'},
+        {id:"top-fixed", x:0, y:0, angle:0, halfHeight:0.5, halfWidth:ctx.canvas.width / SCALE, color:'transparent'},
+        {id:"left-fixed", x:0, y:0, angle:Math.PI / 2, halfHeight:0.5, halfWidth:ctx.canvas.height / SCALE, color:'transparent'},
+        {id:"right-fixed", x:ctx.canvas.width / SCALE, y:0, angle:Math.PI / 2, halfHeight:0.5, halfWidth:ctx.canvas.height / SCALE, color:'transparent'},
 
-        {id:"ground-left-fixed", x:ctx.canvas.width / 2 / SCALE - 5, y:ctx.canvas.height / SCALE, angle:(15 * Math.PI) / 180, halfHeight:0.5, halfWidth:ctx.canvas.width / SCALE, color:'yellow'},
-        {id:"ground-right-fixed", x:ctx.canvas.width / 6 / SCALE, y:ctx.canvas.height / SCALE, angle:-(15 * Math.PI) / 180, halfHeight:0.5, halfWidth:ctx.canvas.width / SCALE, color:'yellow'},
+        {id:"ground-left-fixed", x:ctx.canvas.width / 2 / SCALE - 5, y:ctx.canvas.height / SCALE, angle:(15 * Math.PI) / 180, halfHeight:0.5, halfWidth:ctx.canvas.width / SCALE, color:'transparent'},
+        {id:"ground-right-fixed", x:ctx.canvas.width / 6 / SCALE, y:ctx.canvas.height / SCALE, angle:-(15 * Math.PI) / 180, halfHeight:0.5, halfWidth:ctx.canvas.width / SCALE, color:'transparent'},
         {id:"ball1", x:2, y:14, radius:0.5},
         {id:"ball2", x:3, y:18, radius:0.5},
         {id:"ball3", x:4, y:14, radius:0.5},
         {id:"ball4", x:5, y:18, radius:0.5},
         {id:"ball5", x:6, y:14, radius:0.5},
         {id:"ball6", x:7, y:18, radius:0.5},
-        {id:"ball7", x:8, y:14, radius:0.5},
-        {id:"ball8", x:9, y:18, radius:0.5},
-        {id:"ball9", x:10, y:14, radius:0.5},
-        {id:"ball10", x:11, y:18, radius:0.5},
-        {id:"ball11", x:12, y:14, radius:0.5},
-        {id:"ball12", x:13, y:18, radius:0.5},
+//        {id:"ball7", x:8, y:14, radius:0.5},
+//        {id:"ball8", x:9, y:18, radius:0.5},
+//        {id:"ball9", x:10, y:14, radius:0.5},
+//        {id:"ball10", x:11, y:18, radius:0.5},
+//        {id:"ball11", x:12, y:14, radius:0.5},
+//        {id:"ball12", x:13, y:18, radius:0.5},
 
 
         {id:"nail1-fixed-sensor", x:9, y:ctx.canvas.height / SCALE - 10, radius:0.2, color:'red'},
@@ -308,10 +305,6 @@ function init() {
     box.setBodies(world, false);
 
     controller = new Box2D.Dynamics.Controllers.b2ConstantAccelController();
-    controller.A = new b2Vec2(0, 0);
-    for (var key in box.bodiesMap) {
-        controller.AddBody(box.bodiesMap[key]);
-    }
 
     var contactListener = new Box2D.Dynamics.b2ContactListener;
     contactListener.BeginContact = function (contact) {
@@ -324,19 +317,19 @@ function init() {
             contact.m_fixtureB.m_body.SetLinearVelocity(new b2Vec2(0, 0));
             contact.m_fixtureB.m_body.SetAngularVelocity(0);
             contact.m_fixtureB.SetSensor(true);
-            controller.RemoveBody(box.bodiesMap[contact.m_fixtureB.m_body.m_userData]);
+            removeBody(box.bodiesMap[contact.m_fixtureB.m_body.m_userData]);
 
             stack1 += 1;
         }
         if (contact.m_fixtureB.m_body.m_userData.indexOf('nail') > -1) {
-            //console.log(contact.m_fixtureA.m_body.GetLinearVelocity());
+            ////console.log(contact.m_fixtureA.m_body.GetLinearVelocity());
             if (contact.m_fixtureA.m_body.GetLinearVelocity().y < 0) {
                 return;
             }
             contact.m_fixtureA.m_body.SetLinearVelocity(new b2Vec2(0, 0));
             contact.m_fixtureA.m_body.SetAngularVelocity(0);
             contact.m_fixtureA.SetSensor(true);
-            controller.RemoveBody(box.bodiesMap[contact.m_fixtureA.m_body.m_userData]);
+            removeBody(box.bodiesMap[contact.m_fixtureA.m_body.m_userData]);
             nail = contact.m_fixtureB.m_body.m_userData;
 
             stack2 += 1;
@@ -371,7 +364,7 @@ function init() {
 
         controller.A = new b2Vec2(Math.random(), -15);
 
-        rippleInterval = setInterval(function(){
+        rippleInterval = setInterval(function () {
 
             //left / top
             currentPositionY = currentPositionY - step;
@@ -385,7 +378,7 @@ function init() {
 
     $('body').mouseup(function () {
         controller.A = new b2Vec2(0, 0);
-        
+
         currentPositionY = initPositionY;
         currentPositionX = initPositionX;
         clearInterval(rippleInterval);
@@ -400,16 +393,16 @@ function init() {
 //      }, 10000);
 
     (function loop(animStart) {
-            if (restart) {
-                clearTimeout(impulseTimeout);
-                clearTimeout(initTimeout);
-                init();
-                restart = false;
-            }
-            update(animStart);
-            draw();
-            requestAnimFrame(loop);
-        })();
+        if (restart) {
+            clearTimeout(impulseTimeout);
+            clearTimeout(initTimeout);
+            init();
+            restart = false;
+        }
+        update(animStart);
+        draw();
+        requestAnimFrame(loop);
+    })();
 }
 
 var restart = false;
@@ -417,32 +410,53 @@ var restart = false;
 document.addEventListener("DOMContentLoaded", function () {
 
 
-    
 }, false);
 
 $(document).ready(function () {
-    
-     rippler = ripple('retro-ring-toss-480x800.jpg', document.getElementById('container'), init);
+
+    rippler = ripple('retro-ring-toss-480x800.jpg', document.getElementById('container'), init);
 
     $('#push').bind('mousedown touchstart', function () {
 
-        controller.A = new b2Vec2(Math.random(), -15);
+        for (var key in box.bodiesMap) {
+            if(key.indexOf('ball') == -1) {
+               continue;
+            }
+            var point = box.bodiesMap[key].GetWorldPoint(box.bodiesMap[key].GetLocalCenter());
+            if (point.x < 5.5) {
+                controller.AddBody(box.bodiesMap[key]);
+            }
+
+        }
+
+        controller.A = new b2Vec2(Math.random() * 2, -15);
+
     });
 
     $('body').bind('mouseup touchend', function () {
         controller.A = new b2Vec2(0, 0);
+
+        for (var key in box.bodiesMap) {
+            removeBody(box.bodiesMap[key]);
+        }
     });
 
     //if (window.navigator.msPointerEnabled) {
-        document.getElementById('push').addEventListener("MSPointerDown", function () {
-            controller.A = new b2Vec2(Math.random(), -15);
-        }, false);
-        document.getElementsByTagName('body')[0].addEventListener("MSPointerUp", function () {
-            controller.A = new b2Vec2(0, 0);
-        }, false);
+    document.getElementById('push').addEventListener("MSPointerDown", function () {
+        controller.A = new b2Vec2(Math.random(), -15);
+    }, false);
+    document.getElementsByTagName('body')[0].addEventListener("MSPointerUp", function () {
+        controller.A = new b2Vec2(0, 0);
+    }, false);
     //}
 
 });
+
+function removeBody(body) {
+    try {
+        controller.RemoveBody(body);
+    } catch (e) {}
+}
 </script>
 </body>
 </html>
