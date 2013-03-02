@@ -21,22 +21,57 @@ limitations under the License.
     <link rel="author" href="http://profiles.google.com/sethladd">
     <script src="Box2D.js"></script>
     <script src="bTest.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="jquery.min.js"></script>
+    <script src="ripple.js"></script>
     <meta name="viewport" content="initial-scale = 1.0,maximum-scale = 1.0,width=480"/>
     <style>
         body {
             -webkit-transform: translateZ(0);
         }
+
+        #container {
+            position: relative;
+        }
+
+        #gameCanvas {
+            position: absolute;
+            left: 0;
+            top: 0;
+            z-index: 100;
+        }
+
+        #gameCanvasBackground {
+            position: absolute;
+            left: 0;
+            top: 0;
+            z-index: 99;
+        }
+
+        #push {
+            position: relative;
+            z-index: 101;
+        }
+
+        #push {
+            position: relative;
+            z-index: 101;
+            top: 760px;
+            left: 400px;
+        }
+
     </style>
 </head>
 <body>
-<canvas id="c0" width="480" height="800" style="border: 1px solid black"></canvas>
-<div>
-    <button id="restart">Restart</button>
+
+<div id="container">
+    <canvas id="gameCanvas" width="480" height="800"></canvas>
     <button id="push">Push</button>
+
 </div>
 
 <script>
+
+
     // http://paulirish.com/2011/requestanimationframe-for-smart-animating/
     window.requestAnimFrame = (function () {
         return  window.requestAnimationFrame ||
@@ -197,10 +232,6 @@ function update(animStart) {
     }
 }
 
-var ctx = document.getElementById("c0").getContext("2d");
-var canvasWidth = ctx.canvas.width;
-var canvasHeight = ctx.canvas.height;
-
 function draw() {
     //console.log("d");
 
@@ -211,43 +242,49 @@ function draw() {
     }
 }
 
-var initialState = [
-    {id:"top-fixed", x:0, y:0, angle:0, halfHeight:0.5, halfWidth:ctx.canvas.width / SCALE, color:'yellow'},
-    {id:"left-fixed", x:0, y:0, angle:Math.PI / 2, halfHeight:0.5, halfWidth:ctx.canvas.height / SCALE, color:'yellow'},
-    {id:"right-fixed", x:ctx.canvas.width / SCALE, y:0, angle:Math.PI / 2, halfHeight:0.5, halfWidth:ctx.canvas.height / SCALE, color:'yellow'},
-
-    {id:"ground-left-fixed", x:ctx.canvas.width / 2 / SCALE - 5, y:ctx.canvas.height / SCALE, angle:(15 * Math.PI) / 180, halfHeight:0.5, halfWidth:ctx.canvas.width / SCALE, color:'yellow'},
-    {id:"ground-right-fixed", x:ctx.canvas.width / 6 / SCALE, y:ctx.canvas.height / SCALE, angle:-(15 * Math.PI) / 180, halfHeight:0.5, halfWidth:ctx.canvas.width / SCALE, color:'yellow'},
-    {id:"ball1", x:2, y:18, radius:0.5},
-    {id:"ball2", x:4, y:18, radius:0.5},
-    {id:"ball3", x:6, y:18, radius:0.5},
-    {id:"ball4", x:8, y:18, radius:0.5},
-    {id:"ball5", x:10, y:18, radius:0.5},
-    {id:"ball6", x:12, y:18, radius:0.5},
-    {id:"ball7", x:2, y:18, radius:0.5},
-    {id:"ball8", x:4, y:18, radius:0.5},
-    {id:"ball9", x:6, y:18, radius:0.5},
-    {id:"ball10", x:8, y:18, radius:0.5},
-    {id:"ball11", x:10, y:18, radius:0.5},
-    {id:"ball12", x:12, y:18, radius:0.5},
-
-
-    {id:"nail1-fixed-sensor", x:9, y:ctx.canvas.height / SCALE - 10, radius:0.2, color:'red'},
-    {id:"nail2-fixed-sensor", x:12, y:ctx.canvas.height / SCALE - 12, radius:0.2, color:'red'},
-    {id:"stopper1-fixed-sensor", x:9, y:ctx.canvas.height / SCALE - 5, radius:0.2, color:'red'},
-    {id:"stopper2-fixed-sensor", x:12, y:ctx.canvas.height / SCALE - 7, radius:0.2, color:'red'}
-];
-
-var running = true;
-var impulseTimeout = null;
-var initTimeout = null;
-var particles = [];
-var controller = null;
-
-var stack1 = 0;
-var stack2 = 0;
 
 function init() {
+
+    ctx = document.getElementById("gameCanvas").getContext("2d");
+    canvasWidth = ctx.canvas.width;
+    canvasHeight = ctx.canvas.height;
+
+    initialState = [
+        {id:"top-fixed", x:0, y:0, angle:0, halfHeight:0.5, halfWidth:ctx.canvas.width / SCALE, color:'yellow'},
+        {id:"left-fixed", x:0, y:0, angle:Math.PI / 2, halfHeight:0.5, halfWidth:ctx.canvas.height / SCALE, color:'yellow'},
+        {id:"right-fixed", x:ctx.canvas.width / SCALE, y:0, angle:Math.PI / 2, halfHeight:0.5, halfWidth:ctx.canvas.height / SCALE, color:'yellow'},
+
+        {id:"ground-left-fixed", x:ctx.canvas.width / 2 / SCALE - 5, y:ctx.canvas.height / SCALE, angle:(15 * Math.PI) / 180, halfHeight:0.5, halfWidth:ctx.canvas.width / SCALE, color:'yellow'},
+        {id:"ground-right-fixed", x:ctx.canvas.width / 6 / SCALE, y:ctx.canvas.height / SCALE, angle:-(15 * Math.PI) / 180, halfHeight:0.5, halfWidth:ctx.canvas.width / SCALE, color:'yellow'},
+        {id:"ball1", x:2, y:18, radius:0.5},
+        {id:"ball2", x:4, y:18, radius:0.5},
+        {id:"ball3", x:6, y:18, radius:0.5},
+        {id:"ball4", x:8, y:18, radius:0.5},
+        {id:"ball5", x:10, y:18, radius:0.5},
+        {id:"ball6", x:12, y:18, radius:0.5},
+        {id:"ball7", x:2, y:18, radius:0.5},
+        {id:"ball8", x:4, y:18, radius:0.5},
+        {id:"ball9", x:6, y:18, radius:0.5},
+        {id:"ball10", x:8, y:18, radius:0.5},
+        {id:"ball11", x:10, y:18, radius:0.5},
+        {id:"ball12", x:12, y:18, radius:0.5},
+
+
+        {id:"nail1-fixed-sensor", x:9, y:ctx.canvas.height / SCALE - 10, radius:0.2, color:'red'},
+        {id:"nail2-fixed-sensor", x:12, y:ctx.canvas.height / SCALE - 12, radius:0.2, color:'red'},
+        {id:"stopper1-fixed-sensor", x:9, y:ctx.canvas.height / SCALE - 5, radius:0.2, color:'red'},
+        {id:"stopper2-fixed-sensor", x:12, y:ctx.canvas.height / SCALE - 7, radius:0.2, color:'red'}
+    ];
+
+    var running = true;
+    var impulseTimeout = null;
+    var initTimeout = null;
+    var particles = [];
+    var controller = null;
+
+    var stack1 = 0;
+    var stack2 = 0;
+
     for (var i = 0; i < initialState.length; i++) {
         world[initialState[i].id] = Entity.build(initialState[i]);
     }
@@ -279,7 +316,7 @@ function init() {
             stack1 += 1;
         }
         if (contact.m_fixtureB.m_body.m_userData.indexOf('nail') > -1) {
-            console.log(contact.m_fixtureA.m_body.GetLinearVelocity());
+            //console.log(contact.m_fixtureA.m_body.GetLinearVelocity());
             if (contact.m_fixtureA.m_body.GetLinearVelocity().y < 0) {
                 return;
             }
@@ -288,8 +325,6 @@ function init() {
             contact.m_fixtureA.SetSensor(true);
             controller.RemoveBody(box.bodiesMap[contact.m_fixtureA.m_body.m_userData]);
             nail = contact.m_fixtureB.m_body.m_userData;
-
-            console.log(nail);
 
             stack2 += 1;
         }
@@ -309,6 +344,40 @@ function init() {
     box.world.AddController(controller);
 
 
+    var rippleInterval = null;
+
+    var initPositionX = 140;
+    var initPositionY = 800;
+
+    var currentPositionY = initPositionY;
+    var currentPositionX = initPositionX;
+
+    var step = 30;
+
+    $('#push').mousedown(function () {
+
+        controller.A = new b2Vec2(Math.random(), -15);
+
+        rippleInterval = setInterval(function(){
+
+            //left / top
+            currentPositionY = currentPositionY - step;
+
+            currentPositionX = initPositionX - (Math.random() * 100);
+
+            rippler.disturb(currentPositionX, currentPositionY);
+
+        }, 150);
+    });
+
+    $('body').mouseup(function () {
+        controller.A = new b2Vec2(0, 0);
+        
+        currentPositionY = initPositionY;
+        currentPositionX = initPositionX;
+        clearInterval(rippleInterval);
+    });
+
 //      impulseTimeout = setTimeout(function() {
 //        box.applyImpulse("ball1", parseInt(angleElem.value), parseInt(powerElem.value));
 //      }, 11000);
@@ -316,35 +385,33 @@ function init() {
 //      impulseTimeout = setTimeout(function() {
 //        init();
 //      }, 10000);
+
+    (function loop(animStart) {
+            if (restart) {
+                clearTimeout(impulseTimeout);
+                clearTimeout(initTimeout);
+                init();
+                restart = false;
+            }
+            update(animStart);
+            draw();
+            requestAnimFrame(loop);
+        })();
 }
 
 var restart = false;
 
 document.addEventListener("DOMContentLoaded", function () {
-    init();
 
-    (function loop(animStart) {
-        if (restart) {
-            clearTimeout(impulseTimeout);
-            clearTimeout(initTimeout);
-            init();
-            restart = false;
-        }
-        update(animStart);
-        draw();
-        requestAnimFrame(loop);
-    })();
+
+    
 }, false);
 
 $(document).ready(function () {
-    $('#push').mousedown(function () {
+    
+     rippler = ripple('retro-ring-toss-480x800.jpg', document.getElementById('container'), init);
 
-        controller.A = new b2Vec2(Math.random(), -15);
-    });
-
-    $('body').mouseup(function () {
-        controller.A = new b2Vec2(0, 0);
-    });
+    
 
 });
 
