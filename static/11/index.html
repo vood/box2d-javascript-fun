@@ -22,23 +22,51 @@ limitations under the License.
     <script src="Box2D.js"></script>
     <script src="bTest.js"></script>
     <script src="jquery.min.js"></script>
+    <script src="ripple.js"></script>
     <meta name="viewport" content="initial-scale = 1.0,maximum-scale = 1.0,width=480"/>
     <style>
         body {
             -webkit-transform: translateZ(0);
         }
+
+        #container {
+            position: relative;
+        }
+
+        #gameCanvas {
+            position: absolute;
+            left: 0;
+            top: 0;
+            z-index: 100;
+        }
+
+        #gameCanvasBackground {
+            position: absolute;
+            left: 0;
+            top: 0;
+            z-index: 99;
+        }
+
+        #push {
+            position: relative;
+            z-index: 101;
+        }
+
+        #push {
+            position: relative;
+            z-index: 101;
+            top: 760px;
+            left: 400px;
+        }
+
     </style>
 </head>
 <body>
 
-<div>
-
-</div>
-
-<canvas id="c0" width="480" height="800" style="border: 1px solid black"></canvas>
-<div>
-    <button id="restart">Restart</button>
+<div id="container">
+    <canvas id="gameCanvas" width="480" height="800"></canvas>
     <button id="push">Push</button>
+
 </div>
 
 <script>
@@ -217,7 +245,7 @@ function draw() {
 
 function init() {
 
-    ctx = document.getElementById("c0").getContext("2d");
+    ctx = document.getElementById("gameCanvas").getContext("2d");
     canvasWidth = ctx.canvas.width;
     canvasHeight = ctx.canvas.height;
 
@@ -288,7 +316,7 @@ function init() {
             stack1 += 1;
         }
         if (contact.m_fixtureB.m_body.m_userData.indexOf('nail') > -1) {
-            console.log(contact.m_fixtureA.m_body.GetLinearVelocity());
+            //console.log(contact.m_fixtureA.m_body.GetLinearVelocity());
             if (contact.m_fixtureA.m_body.GetLinearVelocity().y < 0) {
                 return;
             }
@@ -297,8 +325,6 @@ function init() {
             contact.m_fixtureA.SetSensor(true);
             controller.RemoveBody(box.bodiesMap[contact.m_fixtureA.m_body.m_userData]);
             nail = contact.m_fixtureB.m_body.m_userData;
-
-            console.log(nail);
 
             stack2 += 1;
         }
@@ -318,13 +344,38 @@ function init() {
     box.world.AddController(controller);
 
 
+    var rippleInterval = null;
+
+    var initPositionX = 140;
+    var initPositionY = 800;
+
+    var currentPositionY = initPositionY;
+    var currentPositionX = initPositionX;
+
+    var step = 30;
+
     $('#push').mousedown(function () {
 
         controller.A = new b2Vec2(Math.random(), -15);
+
+        rippleInterval = setInterval(function(){
+
+            //left / top
+            currentPositionY = currentPositionY - step;
+
+            currentPositionX = initPositionX - (Math.random() * 100);
+
+            rippler.disturb(currentPositionX, currentPositionY);
+
+        }, 150);
     });
 
     $('body').mouseup(function () {
         controller.A = new b2Vec2(0, 0);
+        
+        currentPositionY = initPositionY;
+        currentPositionX = initPositionX;
+        clearInterval(rippleInterval);
     });
 
 //      impulseTimeout = setTimeout(function() {
@@ -334,6 +385,18 @@ function init() {
 //      impulseTimeout = setTimeout(function() {
 //        init();
 //      }, 10000);
+
+    (function loop(animStart) {
+            if (restart) {
+                clearTimeout(impulseTimeout);
+                clearTimeout(initTimeout);
+                init();
+                restart = false;
+            }
+            update(animStart);
+            draw();
+            requestAnimFrame(loop);
+        })();
 }
 
 var restart = false;
@@ -341,24 +404,13 @@ var restart = false;
 document.addEventListener("DOMContentLoaded", function () {
 
 
-     //ripple('retro-ring-toss-480x800.jpg', document.getElementById('container'), init);
-
-    init();
-
-    (function loop(animStart) {
-        if (restart) {
-            clearTimeout(impulseTimeout);
-            clearTimeout(initTimeout);
-            init();
-            restart = false;
-        }
-        update(animStart);
-        draw();
-        requestAnimFrame(loop);
-    })();
+    
 }, false);
 
 $(document).ready(function () {
+    
+     rippler = ripple('retro-ring-toss-480x800.jpg', document.getElementById('container'), init);
+
     
 
 });

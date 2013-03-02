@@ -6,7 +6,7 @@
  * @author Sergey Chikuyonok (serge.che@gmail.com)
  * @link http://chikuyonok.ru
  */
-var ripple = (function(img_src, container){
+var ripple = (function(img_src, container, callback){
 	var img = new Image,
 		img_data,
 		delay = 30,
@@ -45,7 +45,7 @@ var ripple = (function(img_src, container){
 		
 		canvas.width = width;
 		canvas.height = height;
-		canvas.setAttribute('id', 'c0');
+		canvas.setAttribute('id', 'gameCanvasBackground');
 		
 		oldind = width;
 		newind = width * (height + 3);
@@ -66,7 +66,7 @@ var ripple = (function(img_src, container){
 		ripple_data = ripple.data;
 		
 		
-		canvas.addEventListener('mousemove', function(/* Event */ evt) {
+		canvas.addEventListener('mousemove', function(evt) {
 			disturb(evt.offsetX || evt.layerX, evt.offsetY || evt.layerY);
 		}, false);
 		
@@ -81,6 +81,8 @@ var ripple = (function(img_src, container){
 	function start() {
 		stop();
 		timer_id = setInterval(run, delay);
+
+		callback();
 	}
 	
 	function run() {
@@ -91,6 +93,9 @@ var ripple = (function(img_src, container){
 	}
 	
 	function disturb(dx, dy) {
+
+		console.log(dx + " : " + dy);
+
 		dx <<= 0;
 		dy <<= 0;
 		is_disturbed = true;
