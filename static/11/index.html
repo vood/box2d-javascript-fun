@@ -21,7 +21,7 @@ limitations under the License.
     <script src="Box2D.js"></script>
     <script src="bTest.js"></script>
     <script src="jquery.min.js"></script>
-    <script src="http://code.jquery.com/mobile/1.3.0/jquery.mobile-1.3.0.min.js"></script>
+    <script src="ripple.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
     <meta name="apple-mobile-web-app-capable" content="yes"/>
     <meta name="apple-touch-fullscreen" content="yes"/>
@@ -80,7 +80,6 @@ limitations under the License.
 <div id="container">
     <canvas id="gameCanvas" width="480" height="800"></canvas>
     <button id="push">Push</button>
-
 </div>
 
 <script>
@@ -294,10 +293,10 @@ function init() {
     var impulseTimeout = null;
     var initTimeout = null;
     var particles = [];
-    var controller = null;
+    controller = null;
 
-    var stack1 = 0;
-    var stack2 = 0;
+    stack1 = 0;
+    stack2 = 0;
 
     for (var i = 0; i < initialState.length; i++) {
         world[initialState[i].id] = Entity.build(initialState[i]);

@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="92b29903-3c3d-4d16-b274-245fee61fc1e" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/11/jquery.min.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/11/index.html" afterPath="$PROJECT_DIR$/static/11/index.html" />
     </list>
@@ -27,10 +26,8 @@
       <file leaf-file-name="index.html" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/static/11/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="42" column="42" selection-start="1528" selection-end="1528" vertical-scroll-proportion="0.42857143">
-              <folding>
-                <element signature="n#style#0;n#canvas#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-              </folding>
+            <state line="435" column="81" selection-start="13442" selection-end="13442" vertical-scroll-proportion="3.8592234">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -38,9 +35,12 @@
       <file leaf-file-name="jquery.min.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/static/11/jquery.min.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="4" column="27939" selection-start="92167" selection-end="92167" vertical-scroll-proportion="0.0">
+            <state line="4" column="27939" selection-start="92161" selection-end="92161" vertical-scroll-proportion="0.0">
               <folding>
-                <element signature="n#!!doc" expanded="true" />
+                <marker date="1362228360000" expanded="true" signature="32230:64986" placeholder="{...}" />
+                <marker date="1362228360000" expanded="true" signature="32230:64621" placeholder="{...}" />
+                <marker date="1362228360000" expanded="true" signature="32230:64325" placeholder="{...}" />
+                <marker date="1362228360000" expanded="true" signature="32230:64223" placeholder="{...}" />
               </folding>
             </state>
           </provider>
@@ -290,7 +290,7 @@
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32909605" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32909605" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
@@ -409,19 +409,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/static/11/jquery.min.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="27939" selection-start="92167" selection-end="92167" vertical-scroll-proportion="0.0">
+        <state line="4" column="27939" selection-start="92161" selection-end="92161" vertical-scroll-proportion="0.0">
           <folding>
-            <element signature="n#!!doc" expanded="true" />
+            <marker date="1362228360000" expanded="true" signature="32230:64986" placeholder="{...}" />
+            <marker date="1362228360000" expanded="true" signature="32230:64621" placeholder="{...}" />
+            <marker date="1362228360000" expanded="true" signature="32230:64325" placeholder="{...}" />
+            <marker date="1362228360000" expanded="true" signature="32230:64223" placeholder="{...}" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/static/11/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="42" column="42" selection-start="1528" selection-end="1528" vertical-scroll-proportion="0.42857143">
-          <folding>
-            <element signature="n#style#0;n#canvas#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
+        <state line="435" column="81" selection-start="13442" selection-end="13442" vertical-scroll-proportion="3.8592234">
+          <folding />
         </state>
       </provider>
     </entry>
