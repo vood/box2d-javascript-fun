@@ -61,16 +61,14 @@ limitations under the License.
             z-index: 99;
         }
 
-        #push {
-            position: relative;
-            z-index: 101;
-        }
-
-        #push {
-            position: relative;
-            z-index: 101;
-            top: 760px;
-            left: 400px;
+        #front {
+            background-image: url('front.png');
+            position: absolute;
+            z-index: 102;
+            left: 0;
+            top: 0;
+            width: 480px;
+            height: 800px;
         }
 
     </style>
@@ -79,7 +77,7 @@ limitations under the License.
 
 <div id="container">
     <canvas id="gameCanvas" width="480" height="800"></canvas>
-    <button id="push">Push</button>
+    <div id="front"></div>
 </div>
 
 <script>
@@ -365,25 +363,26 @@ function init() {
     var currentPositionY = initPositionY;
     var currentPositionX = initPositionX;
 
-    var step = 30;
+    var step = 50;
+    var stepIncrease = 2;
 
-    $('#push').mousedown(function () {
+    $('#front').mousedown(function () {
 
         controller.A = new b2Vec2(Math.random(), -15);
 
         rippleInterval = setInterval(function(){
 
             //left / top
-            currentPositionY = currentPositionY - step;
+            currentPositionY = currentPositionY - (step * stepIncrease);
 
             currentPositionX = initPositionX - (Math.random() * 100);
 
             rippler.disturb(currentPositionX, currentPositionY);
 
-        }, 150);
+        }, 300);
     });
 
-    $('body').mouseup(function () {
+    $('#front').mouseup(function () {
         controller.A = new b2Vec2(0, 0);
         
         currentPositionY = initPositionY;
@@ -422,9 +421,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
 $(document).ready(function () {
     
-     rippler = ripple('retro-ring-toss-480x800.jpg', document.getElementById('container'), init);
+     rippler = ripple('background.jpg', document.getElementById('container'), init);
 
-    $('#push').bind('mousedown touchstart', function () {
+    $('#front').bind('mousedown touchstart', function () {
 
         controller.A = new b2Vec2(Math.random(), -15);
     });
@@ -434,9 +433,7 @@ $(document).ready(function () {
     });
 
     //if (window.navigator.msPointerEnabled) {
-        document.getElementById('push').addEventListener("MSPointerDown", function () {
-            controller.A = new b2Vec2(Math.random(), -15);
-        }, false);
+       
         document.getElementsByTagName('body')[0].addEventListener("MSPointerUp", function () {
             controller.A = new b2Vec2(0, 0);
         }, false);

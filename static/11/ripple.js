@@ -9,7 +9,7 @@
 var ripple = (function(img_src, container, callback){
 	var img = new Image,
 		img_data,
-		delay = 30,
+		delay = 10,
 		width,
 		height, 
 		half_width, 
@@ -93,8 +93,6 @@ var ripple = (function(img_src, container, callback){
 	}
 	
 	function disturb(dx, dy) {
-
-		console.log(dx + " : " + dy);
 
 		dx <<= 0;
 		dy <<= 0;
