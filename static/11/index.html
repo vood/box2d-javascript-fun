@@ -90,7 +90,7 @@ limitations under the License.
         #front {
             background-image: url('front.png');
             position: absolute;
-            z-index: 102;
+            z-index: 103;
             left: 0;
             top: 0;
             width: 480px;
@@ -193,6 +193,9 @@ limitations under the License.
     <div id="stick"></div>
     <div id="front"></div>
 </div>
+<audio id="bubbleAudio" preload="auto" loop="loop">
+    <source src="226267_SOUNDDOGS__so.mp3" type="audio/mpeg">
+</audio>
 
 <script>
 
@@ -504,45 +507,13 @@ $(document).ready(function () {
       particleScatteringX:        200,
       particleScatteringY:        200,
       particleSourceX:            70,
-      particleSourceY:            700,
+      particleSourceY:            670,
       particleDirection:          'right',
       gravity:                    -300,
       imgSource:                  'bubble.png'
     });
-    
-    //Start Bubble Machine 1 ---------------------------------------------
-    
-
-    //rippler = ripple('background.jpg', document.getElementById('container'), init);
-
-
-    var rippleInterval = null;
-
-    var initPositionX = 140;
-    var initPositionY = 800;
-
-    var currentPositionY = initPositionY;
-    var currentPositionX = initPositionX;
-
-    var step = 50;
-    var stepIncrease = 2;
-
 
     $('#front').bind('mousedown touchstart', function () {
-
-
-        if (typeof  rippler != 'undefined') {
-            rippleInterval = setInterval(function () {
-
-                //left / top
-                currentPositionY = currentPositionY - (step * stepIncrease);
-
-                currentPositionX = initPositionX - (Math.random() * 100);
-
-                rippler.disturb(currentPositionX, currentPositionY);
-
-            }, 502);
-        }
 
         for (var key in box.bodiesMap) {
             if (key.indexOf('ball') == -1) {
@@ -558,7 +529,7 @@ $(document).ready(function () {
         controller.A = new b2Vec2(3, -15);
 
         bubbleMachine.addBubbles(10);
-
+        document.getElementById("bubbleAudio").play();
     });
 
     $('body').bind('mouseup touchend', function () {
@@ -568,14 +539,8 @@ $(document).ready(function () {
             removeBody(box.bodiesMap[key]);
         }
 
-        currentPositionY = initPositionY;
-        currentPositionX = initPositionX;
-
-        if (rippleInterval) {
-            clearInterval(rippleInterval);
-        }
-
         bubbleMachine.removeBubbles();
+        document.getElementById("bubbleAudio").pause();
     });
 
     $('#waitContainer a').click(function () {

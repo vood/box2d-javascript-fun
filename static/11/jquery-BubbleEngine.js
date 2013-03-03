@@ -85,7 +85,8 @@
           top:      options.particleSourceY,
           left:     options.particleSourceX,
           width:    particleSize,
-          height:   particleSize
+          height:   particleSize,
+          'z-index': 102
         }).appendTo('body');
         div.animate({
           left:     animationEndX,
