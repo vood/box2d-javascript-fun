@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ring Toss Scoreboard</title>
+    <style>
+        .container {
+            margin: 20px auto;
+            width: 320px;
+        }
+
+        @font-face {
+            font-family: 'Purple Purse';
+            src: url(PurplePurse-Regular.ttf);
+        }
+
+        body, div, input {
+            font-family: 'Purple Purse';
+        }
+
+        body {
+            margin: 0px;
+            padding: 0px;
+            -webkit-user-select: none;
+            -webkit-transform: translateZ(0);
+            background: rgb(184, 198, 255);
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.5);
+            padding: 10px;
+            z-index: 10000;
+            border-radius: 30px;
+        }
+
+        .container > div {
+            text-shadow: #666 2px 2px 2px;
+            color: #fff;
+            text-align: center;
+            background-color: #ff5f76;
+            padding: 15px;
+            border-radius: 20px;
+        }
+
+        .container h2 {
+            font-size: 40px;
+            margin: 0px 0px 10px;
+        }
+
+        .container a {
+            display: block;
+            background-color: #f6b62a;
+            border-radius: 10px;
+            padding: 5px;
+            margin: 20px auto 5px;
+            font-size: 30px;
+            width: 180px;
+        }
+
+        .container table {
+            width: 200px;
+        }
+
+        .container table tr td {
+            padding: 5px;
+            font-size: 20px;
+        }
+
+        .container table tr td:first-child {
+            text-align: right;
+        }
+
+        .container table tr td:last-child {
+            text-align: left;
+        }
+    </style>
+    <script src="jquery.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <div>
+        <h2>Scoreboard</h2>
+
+        <p>The 1st place prize is a bottle of fine belarusian vodka</p>
+        <table></table>
+    </div>
+</div>
+<script>
+    $(function () {
+        $.get('index.php', function (data) {
+            for (var i in data) {
+                if (data[i].name) {
+                    $('<tr><td>' + data[i].name + '</td><td>' + data[i].score + '</td></tr>').appendTo('.container table');
+                }
+            }
+        }, 'json');
+    });
+</script>
+</body>
+</html>

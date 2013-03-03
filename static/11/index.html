@@ -14,10 +14,10 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 -->
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="utf-8">
-    <title>Box2D Javascript Fun : 11 : Box2D with Impulse and HTML5 Canvas</title>
+    <title>Retro Ring Toss</title>
     <script src="Box2D.js"></script>
     <script src="bTest.js"></script>
     <script src="jquery.min.js"></script>
@@ -26,7 +26,19 @@ limitations under the License.
     <meta name="apple-mobile-web-app-capable" content="yes"/>
     <meta name="apple-touch-fullscreen" content="yes"/>
     <style>
+        @font-face {
+            font-family: 'Purple Purse';
+            src: url(PurplePurse-Regular.ttf);
+        }
+
+        body, div, input {
+            font-family: 'Purple Purse';
+        }
+
         body {
+            background-image: url("background.jpg");
+            background-position: bottom left  0 0;
+            background-repeat: no-repeat;
             margin: 0px;
             padding: 0px;
             -webkit-user-select: none;
@@ -80,9 +92,96 @@ limitations under the License.
             height: 800px;
         }
 
+        #timer {
+            position: absolute;
+            top: 10px;
+            left: 370px;
+            font-size: 40px;
+            color: #fff;
+            z-index: 100000;
+            width: 100px;
+            text-align: left;
+        }
+
+        #count {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 40px;
+            color: #fff;
+            z-index: 100000;
+        }
+
+        #gameOver {
+            display: none;
+            position: absolute;
+            top: 350px;
+            left: 70px;
+            background-color: rgba(255, 255, 255, 0.5);
+            padding: 10px;
+            z-index: 10000;
+            border-radius: 30px;
+        }
+
+        #gameOver > div {
+            text-shadow: #666 2px 2px 2px;
+            color: #fff;
+            text-align: center;
+            background-color: #ff5f76;
+            padding: 15px;
+            border-radius: 20px;
+        }
+
+        #gameOver h2 {
+            font-size: 40px;
+            margin: 0px 0px 10px;
+        }
+
+        #gameOver a {
+            display: block;
+            background-color: #f6b62a;
+            border-radius: 10px;
+            padding: 5px;
+            margin: 20px auto 5px;
+            font-size: 30px;
+            width: 180px;
+        }
+
+        #gameOver input {
+            font-size: 25px;
+            margin-top: 15px;
+            border-radius: 10px;
+            border: 5px solid #fff;
+            text-align: center;
+        }
+
     </style>
 </head>
 <body>
+
+<div id="timer">30.0</div>
+<div id="count">0/12</div>
+
+<div id="gameOver">
+    <div>
+        <h2>GAME OVER</h2>
+
+        <div>
+            Your score: <span id="scoreLabel"></span>
+        </div>
+
+        <div id="ok">
+            <form action="index.php">
+                <input name="score" id="score" type="hidden" value="3000">
+                <input name="name" placeholder="type your name"><a>OK</a>
+            </form>
+        </div>
+
+        <div style="display: none" id="waitContainer">
+            <a>To play again please wait <span id="wait"></span></a>
+        </div>
+    </div>
+</div>
 
 <div id="container">
     <canvas id="gameCanvas" width="480" height="800"></canvas>
@@ -107,12 +206,12 @@ limitations under the License.
 
 <script>
 
-var powerElem = document.getElementById('power');
-var angleElem = document.getElementById('angle');
-var bulletElem = document.getElementById('bullet');
+var count = document.getElementById('count');
 
 var SCALE = 30;
 var NULL_CENTER = {x:null, y:null};
+
+var cache = {};
 
 function Entity(id, x, y, angle, center, color) {
     this.id = id;
@@ -131,17 +230,6 @@ Entity.prototype.update = function (state) {
 }
 
 Entity.prototype.draw = function (ctx) {
-    ctx.fillStyle = 'black';
-    ctx.beginPath();
-    ctx.arc(this.x * SCALE, this.y * SCALE, 4, 0, Math.PI * 2, true);
-    ctx.closePath();
-    ctx.fill();
-
-    ctx.fillStyle = 'yellow';
-    ctx.beginPath();
-    ctx.arc(this.center.x * SCALE, this.center.y * SCALE, 2, 0, Math.PI * 2, true);
-    ctx.closePath();
-    ctx.fill();
 }
 
 Entity.build = function (def) {
@@ -163,22 +251,40 @@ CircleEntity.prototype = new Entity();
 CircleEntity.prototype.constructor = CircleEntity;
 
 CircleEntity.prototype.draw = function (ctx) {
-    ctx.save();
-    ctx.translate(this.x * SCALE, this.y * SCALE);
-    ctx.rotate(this.angle);
-    ctx.translate(-(this.x) * SCALE, -(this.y) * SCALE);
+    var cached = cache[this.id];
 
-    ctx.fillStyle = this.color;
-    ctx.strokeStyle = 'black';
-    ctx.beginPath();
-    ctx.arc(this.x * SCALE, this.y * SCALE, this.radius * SCALE, 0, Math.PI * 2, true);
-    ctx.moveTo(this.x * SCALE, this.y * SCALE);
-    ctx.lineTo((this.x) * SCALE, (this.y + this.radius) * SCALE);
-    ctx.closePath();
-    ctx.fill();
-    ctx.stroke();
 
-    ctx.restore();
+    var radius = this.radius + 0.3;
+    var scaledRadius = radius * SCALE;
+    var canvasRadius = scaledRadius + 6;
+
+    if (!cached) {
+        var canvasTemp = document.createElement("canvas"),
+                cached = canvasTemp.getContext("2d");
+        canvasTemp.height = canvasTemp.width = (canvasRadius) * 2;
+        cached.fillStyle = 'transparent';
+        cached.strokeStyle = this.color;
+
+
+        cached.beginPath();
+        cached.shadowColor = '#666';
+        cached.shadowBlur = 3;
+        cached.shadowOffsetX = 1;
+        cached.shadowOffsetY = 1;
+        cached.lineWidth = "4";
+
+        cached.arc(canvasRadius, canvasRadius, scaledRadius, 0, Math.PI * 2, true);
+        cached.closePath();
+        cached.fill();
+        cached.stroke();
+        cache[this.id] = cached;
+    }
+
+    //ctx.save();
+
+    ctx.drawImage(cached.canvas, this.x * SCALE - canvasRadius, this.y * SCALE - canvasRadius);
+
+    //ctx.restore();
 
     Entity.prototype.draw.call(this, ctx);
 }
@@ -192,16 +298,16 @@ RectangleEntity.prototype = new Entity();
 RectangleEntity.prototype.constructor = RectangleEntity;
 
 RectangleEntity.prototype.draw = function (ctx) {
-    ctx.save();
-    ctx.translate(this.x * SCALE, this.y * SCALE);
-    ctx.rotate(this.angle);
-    ctx.translate(-(this.x) * SCALE, -(this.y) * SCALE);
-    ctx.fillStyle = this.color;
-    ctx.fillRect((this.x - this.halfWidth) * SCALE,
-            (this.y - this.halfHeight) * SCALE,
-            (this.halfWidth * 2) * SCALE,
-            (this.halfHeight * 2) * SCALE);
-    ctx.restore();
+//    ctx.save();
+//    ctx.translate(this.x * SCALE, this.y * SCALE);
+//    ctx.rotate(this.angle);
+//    ctx.translate(-(this.x) * SCALE, -(this.y) * SCALE);
+//    ctx.fillStyle = this.color;
+//    ctx.fillRect((this.x - this.halfWidth) * SCALE,
+//            (this.y - this.halfHeight) * SCALE,
+//            (this.halfWidth * 2) * SCALE,
+//            (this.halfHeight * 2) * SCALE);
+//    ctx.restore();
 
     Entity.prototype.draw.call(this, ctx);
 }
@@ -241,6 +347,7 @@ PolygonEntity.prototype.draw = function (ctx) {
 var world = {};
 var bodiesState = null;
 var box = null;
+var gameOverTimer = 0;
 
 function update(animStart) {
     box.update();
@@ -262,6 +369,8 @@ function draw() {
     }
 }
 
+var countNumber = 0;
+
 
 function init() {
 
@@ -269,38 +378,42 @@ function init() {
     canvasWidth = ctx.canvas.width;
     canvasHeight = ctx.canvas.height;
 
+    console.log(canvasWidth);
+    console.log(canvasHeight);
+
     initialState = [
         {id:"top-fixed", x:0, y:0, angle:0, halfHeight:0.5, halfWidth:ctx.canvas.width / SCALE, color:'transparent'},
         {id:"left-fixed", x:0, y:0, angle:Math.PI / 2, halfHeight:0.5, halfWidth:ctx.canvas.height / SCALE, color:'transparent'},
         {id:"right-fixed", x:ctx.canvas.width / SCALE, y:0, angle:Math.PI / 2, halfHeight:0.5, halfWidth:ctx.canvas.height / SCALE, color:'transparent'},
 
-        {id:"ground-left-fixed", x:ctx.canvas.width / 2 / SCALE - 5, y:ctx.canvas.height / SCALE, angle:(15 * Math.PI) / 180, halfHeight:0.5, halfWidth:ctx.canvas.width / SCALE, color:'transparent'},
-        {id:"ground-right-fixed", x:ctx.canvas.width / 6 / SCALE, y:ctx.canvas.height / SCALE, angle:-(15 * Math.PI) / 180, halfHeight:0.5, halfWidth:ctx.canvas.width / SCALE, color:'transparent'},
-        {id:"ball1", x:2, y:14, radius:0.5},
-        {id:"ball2", x:3, y:18, radius:0.5},
-        {id:"ball3", x:4, y:14, radius:0.5},
-        {id:"ball4", x:5, y:18, radius:0.5},
-        {id:"ball5", x:6, y:14, radius:0.5},
-        {id:"ball6", x:7, y:18, radius:0.5},
-//        {id:"ball7", x:8, y:14, radius:0.5},
-//        {id:"ball8", x:9, y:18, radius:0.5},
-//        {id:"ball9", x:10, y:14, radius:0.5},
-//        {id:"ball10", x:11, y:18, radius:0.5},
-//        {id:"ball11", x:12, y:14, radius:0.5},
-//        {id:"ball12", x:13, y:18, radius:0.5},
+        {id:"ground-left-fixed", x:ctx.canvas.width / 2 / SCALE - 4, y:ctx.canvas.height / SCALE, angle:0, halfHeight:0.5, halfWidth:ctx.canvas.width / SCALE, color:'transparent'},
+        {id:"ground-right-fixed", x:ctx.canvas.width / 6 / SCALE + 1, y:ctx.canvas.height / SCALE, angle:-(15 * Math.PI) / 180, halfHeight:0.5, halfWidth:ctx.canvas.width / SCALE, color:'transparent'},
+        {id:"ball1", x:2, y:14, radius:0.4, color:'red'},
+        {id:"ball2", x:3, y:18, radius:0.4, color:'green'},
+        {id:"ball3", x:4, y:14, radius:0.4, color:'blue'},
+        {id:"ball4", x:5, y:18, radius:0.4, color:'yellow'},
+        {id:"ball5", x:6, y:14, radius:0.4, color:'red'},
+        {id:"ball6", x:7, y:18, radius:0.4, color:'green'},
+//        {id:"ball7", x:8, y:14, radius:0.4, color:'blue'},
+//        {id:"ball8", x:9, y:18, radius:0.4, color:'yellow'},
+//        {id:"ball9", x:10, y:14, radius:0.4, color:'red'},
+//        {id:"ball10", x:11, y:18, radius:0.4, color:'green'},
+//        {id:"ball11", x:12, y:14, radius:0.4, color:'blue'},
+//        {id:"ball12", x:13, y:18, radius:0.4, color:'yellow'},
 
 
-        {id:"nail1-fixed-sensor", x:9, y:ctx.canvas.height / SCALE - 10, radius:0.2, color:'red'},
-        {id:"nail2-fixed-sensor", x:12, y:ctx.canvas.height / SCALE - 12, radius:0.2, color:'red'},
-        {id:"stopper1-fixed-sensor", x:9, y:ctx.canvas.height / SCALE - 5, radius:0.2, color:'red'},
-        {id:"stopper2-fixed-sensor", x:12, y:ctx.canvas.height / SCALE - 7, radius:0.2, color:'red'}
+        {id:"nail1-fixed-sensor", x:9, y:ctx.canvas.height / SCALE - 10, radius:0.1, color:'red'},
+        {id:"nail2-fixed-sensor", x:12.7, y:ctx.canvas.height / SCALE - 14, radius:0.1, color:'transparent'},
+        {id:"stopper1-fixed-sensor", x:9, y:ctx.canvas.height / SCALE - 5, radius:0.1, color:'red'},
+        {id:"stopper2-fixed-sensor", x:12.7, y:ctx.canvas.height / SCALE - 7, radius:0.1, color:'transparent'}
     ];
 
     var running = true;
     var impulseTimeout = null;
     var initTimeout = null;
-    var particles = [];
+    particles = 12;
     controller = null;
+    restart = false;
 
     stack1 = 0;
     stack2 = 0;
@@ -354,10 +467,30 @@ function init() {
                 && contact.m_fixtureB.IsSensor()) {
             contact.m_fixtureB.m_body.SetType(b2Body.b2_staticBody);
         }
-    };
-    box.world.SetContactListener(contactListener);
 
-    box.world.AddController(controller);
+        if(countNumber < stack1 + stack2) {
+            countNumber = stack1 + stack2;
+            count.innerText = countNumber + '/' + particles;
+        }
+
+
+    };
+
+    if(!restart) {
+        box.world.SetContactListener(contactListener);
+
+        box.world.AddController(controller);
+    }
+
+}
+
+var restart = false;
+
+$(document).ready(function () {
+
+
+
+    //rippler = ripple('background.jpg', document.getElementById('container'), init);
 
 
     var rippleInterval = null;
@@ -371,67 +504,26 @@ function init() {
     var step = 50;
     var stepIncrease = 2;
 
-    $('#front').mousedown(function () {
-
-        controller.A = new b2Vec2(Math.random(), -15);
-
-        rippleInterval = setInterval(function () {
-
-            //left / top
-            currentPositionY = currentPositionY - (step * stepIncrease);
-
-            currentPositionX = initPositionX - (Math.random() * 100);
-
-            rippler.disturb(currentPositionX, currentPositionY);
-
-        }, 300);
-    });
-
-    $('#front').mouseup(function () {
-        controller.A = new b2Vec2(0, 0);
-
-        currentPositionY = initPositionY;
-        currentPositionX = initPositionX;
-        clearInterval(rippleInterval);
-    });
-
-//      impulseTimeout = setTimeout(function() {
-//        box.applyImpulse("ball1", parseInt(angleElem.value), parseInt(powerElem.value));
-//      }, 11000);
-
-//      impulseTimeout = setTimeout(function() {
-//        init();
-//      }, 10000);
-
-    (function loop(animStart) {
-        if (restart) {
-            clearTimeout(impulseTimeout);
-            clearTimeout(initTimeout);
-            init();
-            restart = false;
-        }
-        update(animStart);
-        draw();
-        requestAnimFrame(loop);
-    })();
-}
-
-var restart = false;
-
-document.addEventListener("DOMContentLoaded", function () {
-
-
-}, false);
-
-$(document).ready(function () {
-    
-     rippler = ripple('background.jpg', document.getElementById('container'), init);
 
     $('#front').bind('mousedown touchstart', function () {
 
+
+        if (typeof  rippler != 'undefined') {
+            rippleInterval = setInterval(function () {
+
+                //left / top
+                currentPositionY = currentPositionY - (step * stepIncrease);
+
+                currentPositionX = initPositionX - (Math.random() * 100);
+
+                rippler.disturb(currentPositionX, currentPositionY);
+
+            }, 502);
+        }
+
         for (var key in box.bodiesMap) {
-            if(key.indexOf('ball') == -1) {
-               continue;
+            if (key.indexOf('ball') == -1) {
+                continue;
             }
             var point = box.bodiesMap[key].GetWorldPoint(box.bodiesMap[key].GetLocalCenter());
             if (point.x < 5.5) {
@@ -440,7 +532,7 @@ $(document).ready(function () {
 
         }
 
-        controller.A = new b2Vec2(Math.random() * 2, -15);
+        controller.A = new b2Vec2(3, -15);
 
     });
 
@@ -450,24 +542,78 @@ $(document).ready(function () {
         for (var key in box.bodiesMap) {
             removeBody(box.bodiesMap[key]);
         }
+
+        currentPositionY = initPositionY;
+        currentPositionX = initPositionX;
+
+        if(rippleInterval) {
+            clearInterval(rippleInterval);
+        }
     });
 
-    //if (window.navigator.msPointerEnabled) {
-    document.getElementById('push').addEventListener("MSPointerDown", function () {
-        controller.A = new b2Vec2(Math.random(), -15);
-    }, false);
-    document.getElementsByTagName('body')[0].addEventListener("MSPointerUp", function () {
-        controller.A = new b2Vec2(0, 0);
-    }, false);
-    //}
+    $('#waitContainer a').click(function () {
+        restart = true;
+        $(gameOver).hide();
+    });
+
+    $('#ok a').bind('mouseup touchend', function () {
+        $.post('index.php', $('#ok form').serialize(), function () {
+            $('#ok').hide();
+            gameOverTimer = 30000;
+            $('#waitContainer').show();
+        })
+    });
+
+    init();
+
+    (function loop(animStart) {
+        if (restart) {
+            init();
+            total = 30000;
+            restart = false;
+        }
+        update(animStart);
+        draw();
+        requestAnimFrame(loop);
+    })();
 
 });
 
 function removeBody(body) {
     try {
         controller.RemoveBody(body);
-    } catch (e) {}
+    } catch (e) {
+    }
 }
+
+
+var total = 30000;
+
+var timer = document.getElementById('timer');
+
+var gameOver = document.getElementById('gameOver');
+
+var wait = document.getElementById('wait');
+
+
+var scoreLabel = document.getElementById('scoreLabel');
+
+var score = document.getElementById('score');
+
+setInterval(function () {
+    if (total >= 0) {
+        timer.innerText = parseFloat(total / 1000).toFixed(1);
+        total -= 1000;
+    } else if (gameOverTimer >= 0) {
+        wait.innerText = parseFloat(gameOverTimer / 1000).toFixed(1);
+        gameOverTimer -= 1000;
+    } else {
+        scoreLabel.innerText = score.value = stack1 + stack2;
+        $(gameOver).show();
+    }
+
+}, 1000);
+
 </script>
 </body>
 </html>
