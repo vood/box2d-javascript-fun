@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="92b29903-3c3d-4d16-b274-245fee61fc1e" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/11/bTest.js" afterPath="$PROJECT_DIR$/static/11/bTest.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/11/index.html" afterPath="$PROJECT_DIR$/static/11/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/11/ripple.js" afterPath="$PROJECT_DIR$/static/11/ripple.js" />
     </list>
     <ignored path="box2d-javascript-fun.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -27,30 +26,38 @@
       <file leaf-file-name="index.html" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/static/11/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="266" column="196" selection-start="8039" selection-end="8039" vertical-scroll-proportion="0.4935065">
+            <state line="572" column="64" selection-start="16739" selection-end="16739" vertical-scroll-proportion="0.5517799">
+              <folding>
+                <element signature="n#style#0;n#div#2;n#div#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <marker date="1362300546000" expanded="true" signature="17503:17868" placeholder="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="dashboard.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/static/11/dashboard.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="64" column="27" selection-start="1487" selection-end="1487" vertical-scroll-proportion="-14.875">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Box2D.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static/11/Box2D.js">
+      <file leaf-file-name="index.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/static/11/index.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="7665" column="26" selection-start="295652" selection-end="295652" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="n#!!doc" expanded="true" />
-              </folding>
+            <state line="22" column="24" selection-start="391" selection-end="391" vertical-scroll-proportion="-13.75">
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="jquery.min.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static/11/jquery.min.js">
+      <file leaf-file-name="bTest.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/static/06/bTest.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="4" column="27939" selection-start="92161" selection-end="92161" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="n#!!doc" expanded="true" />
-              </folding>
+            <state line="60" column="89" selection-start="1972" selection-end="1972" vertical-scroll-proportion="0.0">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -58,16 +65,7 @@
       <file leaf-file-name="bTest.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/static/11/bTest.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="86" column="28" selection-start="2825" selection-end="2826" vertical-scroll-proportion="-5.3846154">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ripple.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static/11/ripple.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="96" column="10" selection-start="1837" selection-end="1837" vertical-scroll-proportion="0.0">
+            <state line="132" column="10" selection-start="4346" selection-end="4349" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -89,6 +87,9 @@
         <option value="$PROJECT_DIR$/static/11/jquery.min.js" />
         <option value="$PROJECT_DIR$/static/11/bTest.js" />
         <option value="$PROJECT_DIR$/static/11/ripple.js" />
+        <option value="$PROJECT_DIR$/static/11/dashbord.html" />
+        <option value="$PROJECT_DIR$/static/11/index.php" />
+        <option value="$PROJECT_DIR$/static/11/dashboard.html" />
         <option value="$PROJECT_DIR$/static/11/index.html" />
       </list>
     </option>
@@ -124,7 +125,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -213,14 +213,15 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="WebServerToolWindowFactoryState" value="true" />
     <property name="options.lastSelected" value="project.propSubversion" />
-    <property name="options.searchVisible" value="true" />
     <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
   </component>
   <component name="PublishConfig">
     <servers>
@@ -253,9 +254,16 @@
     </key>
   </component>
   <component name="RunManager">
+    <configuration default="true" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
+      <TestRunner />
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpUnitRemoteRunConfigurationType" factoryName="PHPUnit on Server">
+      <method />
+    </configuration>
     <configuration default="true" type="JavascriptDebugSession" factoryName="Local">
       <JSDebuggerConfigurationSettings>
-        <option name="engineId" />
+        <option name="engineId" value="embedded" />
         <option name="fileUrl" />
       </JSDebuggerConfigurationSettings>
       <method />
@@ -284,6 +292,7 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
+      <changelist id="92b29903-3c3d-4d16-b274-245fee61fc1e" name="Default" comment="" />
       <created>1362174465538</created>
       <updated>1362174465538</updated>
     </task>
@@ -291,32 +300,36 @@
       <created>1362222670438</created>
       <updated>1362222670438</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="the latest version">
+      <created>1362299629638</created>
+      <updated>1362299629638</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="22" width="1440" height="829" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32909605" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24964131" sideWeight="0.670904" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25322813" sideWeight="0.670904" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32909605" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -373,55 +386,59 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/static/09/index.html">
+    <entry file="file://$PROJECT_DIR$/static/06/bTest.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="226" column="6" selection-start="7524" selection-end="7599" vertical-scroll-proportion="0.64415586">
+        <state line="60" column="89" selection-start="1972" selection-end="1972" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/11/bTest.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="132" column="10" selection-start="4349" selection-end="4349" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/static/09/bTest.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="132" column="24" selection-start="4452" selection-end="4452" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="132" column="24" selection-start="4452" selection-end="4452" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/static/Box2D.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="4554" column="6" selection-start="172011" selection-end="172011" vertical-scroll-proportion="0.33251834">
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/11/jquery.min.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="27939" selection-start="92161" selection-end="92161" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
+        <state line="4554" column="6" selection-start="172011" selection-end="172011" vertical-scroll-proportion="0.33251834" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/static/11/ripple.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="96" column="10" selection-start="1837" selection-end="1837" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/Box2d.min.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="292" column="168" selection-start="147159" selection-end="147159" vertical-scroll-proportion="0.33333334">
+        <state line="8" column="4" selection-start="212" selection-end="212" vertical-scroll-proportion="0.26785713">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/static/11/Box2D.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="7665" column="26" selection-start="295652" selection-end="295652" vertical-scroll-proportion="0.0">
+        <state line="9" column="47" selection-start="489" selection-end="489" vertical-scroll-proportion="-0.7241379">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/lib/JavascriptLanguage.jar!/com/intellij/lang/javascript/index/predefined/HTML5.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1023" column="35" selection-start="16983" selection-end="16983" vertical-scroll-proportion="0.3325893">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/Box2d.min.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="167" column="30" selection-start="83560" selection-end="83560" vertical-scroll-proportion="0.33333334" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/11/jquery.min.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="4" column="27680" selection-start="64222" selection-end="92629" vertical-scroll-proportion="0.13793103">
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>
@@ -430,15 +447,51 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/static/11/bTest.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="86" column="28" selection-start="2825" selection-end="2826" vertical-scroll-proportion="-5.3846154">
+        <state line="132" column="10" selection-start="4346" selection-end="4349" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/11/ring.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/06/bTest.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="60" column="89" selection-start="1972" selection-end="1972" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/11/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="22" column="24" selection-start="391" selection-end="391" vertical-scroll-proportion="-13.75">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/09/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="212" column="12" selection-start="6883" selection-end="6887" vertical-scroll-proportion="5.145631">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/11/dashboard.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="64" column="27" selection-start="1487" selection-end="1487" vertical-scroll-proportion="-14.875">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/static/11/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="266" column="196" selection-start="8039" selection-end="8039" vertical-scroll-proportion="0.4935065">
-          <folding />
+        <state line="572" column="64" selection-start="16739" selection-end="16739" vertical-scroll-proportion="0.5517799">
+          <folding>
+            <element signature="n#style#0;n#div#2;n#div#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <marker date="1362300546000" expanded="true" signature="17503:17868" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>

@@ -37,7 +37,7 @@ limitations under the License.
 
         body {
             background-image: url("background.jpg");
-            background-position: bottom left  0 0;
+            background-position: bottom left 0 0;
             background-repeat: no-repeat;
             margin: 0px;
             padding: 0px;
@@ -394,12 +394,12 @@ function init() {
         {id:"ball4", x:5, y:18, radius:0.4, color:'yellow'},
         {id:"ball5", x:6, y:14, radius:0.4, color:'red'},
         {id:"ball6", x:7, y:18, radius:0.4, color:'green'},
-//        {id:"ball7", x:8, y:14, radius:0.4, color:'blue'},
-//        {id:"ball8", x:9, y:18, radius:0.4, color:'yellow'},
-//        {id:"ball9", x:10, y:14, radius:0.4, color:'red'},
-//        {id:"ball10", x:11, y:18, radius:0.4, color:'green'},
-//        {id:"ball11", x:12, y:14, radius:0.4, color:'blue'},
-//        {id:"ball12", x:13, y:18, radius:0.4, color:'yellow'},
+        {id:"ball7", x:8, y:14, radius:0.4, color:'blue'},
+        {id:"ball8", x:9, y:18, radius:0.4, color:'yellow'},
+        {id:"ball9", x:10, y:14, radius:0.4, color:'red'},
+        {id:"ball10", x:11, y:18, radius:0.4, color:'green'},
+        {id:"ball11", x:12, y:14, radius:0.4, color:'blue'},
+        {id:"ball12", x:13, y:18, radius:0.4, color:'yellow'},
 
 
         {id:"nail1-fixed-sensor", x:9, y:ctx.canvas.height / SCALE - 10, radius:0.1, color:'red'},
@@ -468,7 +468,7 @@ function init() {
             contact.m_fixtureB.m_body.SetType(b2Body.b2_staticBody);
         }
 
-        if(countNumber < stack1 + stack2) {
+        if (countNumber < stack1 + stack2) {
             countNumber = stack1 + stack2;
             count.innerText = countNumber + '/' + particles;
         }
@@ -476,7 +476,7 @@ function init() {
 
     };
 
-    if(!restart) {
+    if (!restart) {
         box.world.SetContactListener(contactListener);
 
         box.world.AddController(controller);
@@ -546,15 +546,19 @@ $(document).ready(function () {
         currentPositionY = initPositionY;
         currentPositionX = initPositionX;
 
-        if(rippleInterval) {
+        if (rippleInterval) {
             clearInterval(rippleInterval);
         }
     });
 
     $('#waitContainer a').click(function () {
-        restart = true;
-        $(gameOver).hide();
+        if (gameOverTimer <= 0) {
+            restart = true;
+            $(gameOver).hide();
+        }
     });
+
+
 
     $('#ok a').bind('mouseup touchend', function () {
         $.post('index.php', $('#ok form').serialize(), function () {
@@ -563,6 +567,17 @@ $(document).ready(function () {
             $('#waitContainer').show();
         })
     });
+
+    $('form').bind('submit', function () {
+        $.post('index.php', $('#ok form').serialize(), function () {
+            $('#ok').hide();
+            gameOverTimer = 30000;
+            $('#waitContainer').show();
+        })
+
+        return false;
+    });
+
 
     init();
 
