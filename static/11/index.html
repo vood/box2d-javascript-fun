@@ -22,7 +22,7 @@ limitations under the License.
     <script src="bTest.js"></script>
     <script src="jquery.min.js"></script>
     <script src="ripple.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+    <meta name="viewport" content="width=480px, initial-scale=1.0, maximum-scale=1.0"/>
     <meta name="apple-mobile-web-app-capable" content="yes"/>
     <meta name="apple-touch-fullscreen" content="yes"/>
     <style>
@@ -41,6 +41,7 @@ limitations under the License.
             background-repeat: no-repeat;
             margin: 0px;
             padding: 0px;
+            z-index: 0;
             -webkit-user-select: none;
             -webkit-transform: translateZ(0);
         }
@@ -56,14 +57,26 @@ limitations under the License.
         }
 
         #container {
+            background-image: url("background-2.png");
+            z-index: 99;
             position: relative;
+            height: 800px;
+            width: 480px;
+        }
+
+        #stick {
+            background-image: url("cactus.png");
+            z-index: 100;
+            position: relative;
+            height: 800px;
+            width: 480px;
         }
 
         #gameCanvas {
             position: absolute;
             left: 0;
             top: 0;
-            z-index: 100;
+            z-index: 101;
         }
 
         #gameCanvasBackground {
@@ -71,15 +84,6 @@ limitations under the License.
             left: 0;
             top: 0;
             z-index: 99;
-        }
-
-        #push {
-            position: relative;
-            z-index: 101;
-            top: 730px;
-            left: 400px;
-            text-indent: 11110px;
-            width: 62px;
         }
 
         #front {
@@ -185,6 +189,7 @@ limitations under the License.
 
 <div id="container">
     <canvas id="gameCanvas" width="480" height="800"></canvas>
+    <div id="stick"></div>
     <div id="front"></div>
 </div>
 
@@ -402,10 +407,12 @@ function init() {
         {id:"ball12", x:13, y:18, radius:0.4, color:'yellow'},
 
 
-        {id:"nail1-fixed-sensor", x:9, y:ctx.canvas.height / SCALE - 10, radius:0.1, color:'red'},
-        {id:"nail2-fixed-sensor", x:12.7, y:ctx.canvas.height / SCALE - 14, radius:0.1, color:'transparent'},
-        {id:"stopper1-fixed-sensor", x:9, y:ctx.canvas.height / SCALE - 5, radius:0.1, color:'red'},
-        {id:"stopper2-fixed-sensor", x:12.7, y:ctx.canvas.height / SCALE - 7, radius:0.1, color:'transparent'}
+        {id:"nail1-fixed-sensor", x:10.2, y:ctx.canvas.height / SCALE - 12, radius:0.1, color:'transparent'},
+        {id:"nail2-fixed-sensor", x:12.1, y:ctx.canvas.height / SCALE - 14, radius:0.1, color:'transparent'},
+        {id:"nail3-fixed-sensor", x:14, y:ctx.canvas.height / SCALE - 11, radius:0.1, color:'transparent'},
+        {id:"stopper1-fixed-sensor", x:10.2, y:ctx.canvas.height / SCALE - 9, radius:0.1, color:'transparent'},
+        {id:"stopper2-fixed-sensor", x:12.1, y:ctx.canvas.height / SCALE - 9, radius:0.1, color:'transparent'},
+        {id:"stopper3-fixed-sensor", x:14, y:ctx.canvas.height / SCALE - 8, radius:0.1, color:'transparent'}
     ];
 
     var running = true;
@@ -615,6 +622,8 @@ var scoreLabel = document.getElementById('scoreLabel');
 
 var score = document.getElementById('score');
 
+var ok = document.getElementById('ok');
+
 setInterval(function () {
     if (total >= 0) {
         timer.innerText = parseFloat(total / 1000).toFixed(1);
@@ -624,6 +633,8 @@ setInterval(function () {
         gameOverTimer -= 1000;
     } else {
         scoreLabel.innerText = score.value = stack1 + stack2;
+        $(wait).hide();
+        $(ok).show();
         $(gameOver).show();
     }
 
