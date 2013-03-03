@@ -21,8 +21,9 @@ limitations under the License.
     <script src="Box2D.js"></script>
     <script src="bTest.js"></script>
     <script src="jquery.min.js"></script>
-    <script src="ripple.js"></script>
-    <meta name="viewport" content="width=480px, initial-scale=1.0, maximum-scale=1.0"/>
+    <script src="jquery.easing.1.3.js"></script>
+    <script src="jquery-BubbleEngine.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
     <meta name="apple-mobile-web-app-capable" content="yes"/>
     <meta name="apple-touch-fullscreen" content="yes"/>
     <style>
@@ -495,7 +496,22 @@ var restart = false;
 
 $(document).ready(function () {
 
-
+    //Build Bubble Machines with the Bubble Engine ------------------------
+    var bubbleMachine = $().BubbleEngine({
+      particleSizeMin:            0,
+      particleSizeMax:            50,
+      particleAnimationDuration:  500,
+      particleScatteringX:        200,
+      particleScatteringY:        200,
+      particleSourceX:            70,
+      particleSourceY:            700,
+      particleDirection:          'right',
+      gravity:                    -300,
+      imgSource:                  'bubble.png'
+    });
+    
+    //Start Bubble Machine 1 ---------------------------------------------
+    
 
     //rippler = ripple('background.jpg', document.getElementById('container'), init);
 
@@ -541,6 +557,8 @@ $(document).ready(function () {
 
         controller.A = new b2Vec2(3, -15);
 
+        bubbleMachine.addBubbles(10);
+
     });
 
     $('body').bind('mouseup touchend', function () {
@@ -556,6 +574,8 @@ $(document).ready(function () {
         if (rippleInterval) {
             clearInterval(rippleInterval);
         }
+
+        bubbleMachine.removeBubbles();
     });
 
     $('#waitContainer a').click(function () {
