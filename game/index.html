@@ -18,18 +18,18 @@ limitations under the License.
 <head>
     <meta charset="utf-8">
     <title>Retro Ring Toss</title>
-    <script src="Box2D.js"></script>
-    <script src="bTest.js"></script>
-    <script src="jquery.min.js"></script>
-    <script src="jquery.easing.1.3.js"></script>
-    <script src="jquery-BubbleEngine.js"></script>
+    <script src="js/Box2D.js"></script>
+    <script src="js/bTest.js"></script>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/jquery.easing.1.3.js"></script>
+    <script src="js/jquery-BubbleEngine.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=0.666, maximum-scale=1.0"/>
     <meta name="apple-mobile-web-app-capable" content="yes"/>
     <meta name="apple-touch-fullscreen" content="yes"/>
     <style>
         @font-face {
             font-family: 'Purple Purse';
-            src: url(PurplePurse-Regular.ttf);
+            src: url(font/PurplePurse-Regular.ttf);
         }
 
         body, div, input {
@@ -37,7 +37,7 @@ limitations under the License.
         }
 
         body {
-            background-image: url("background.jpg");
+            background-image: url("images/background.jpg");
             background-position: center bottom;
             background-repeat: no-repeat;
             margin: 0px;
@@ -63,7 +63,7 @@ limitations under the License.
 
         #container {
             margin: 0 auto;
-            background-image: url("background-2.png");
+            background-image: url("images/background-2.png");
             z-index: 99;
             position: relative;
             height: 700px;
@@ -72,7 +72,7 @@ limitations under the License.
         }
 
         #stick {
-            background-image: url("cactus.png");
+            background-image: url("images/cactus.png");
             z-index: 100;
             position: relative;
             height: 700px;
@@ -96,7 +96,7 @@ limitations under the License.
         }
 
         #front {
-            background-image: url('front.png');
+            background-image: url('images/front.png');
             position: absolute;
             z-index: 103;
             left: 0;
@@ -207,7 +207,7 @@ limitations under the License.
     <div id="front"></div>
 </div>
 <audio id="bubbleAudio" preload="auto" loop="loop">
-    <source src="226267_SOUNDDOGS__so.mp3" type="audio/mpeg">
+    <source src="sounds/226267_SOUNDDOGS__so.mp3" type="audio/mpeg">
 </audio>
 
 <script>
