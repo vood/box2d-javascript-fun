@@ -13,9 +13,12 @@
         particleDirection:          'right' /* 'right', 'left', 'center'*/,
         gravity:                    -100,
         imgSource:                  'images/bubble.png',
-        RenewBubbles:               'on'
+        RenewBubbles:               'off'
       };
       var options = $.extend(defaults, options);
+
+      var images = [];
+
       options.couter = 0;
 
       //-----------------------------------------------------------------------
@@ -46,7 +49,7 @@
       };
       this.addBubbles = function(number) {
         if (!number) number = 25;
-        options.RenewBubbles = 'on';
+        options.RenewBubbles = 'off';
         for (i=1;i<=number;i++) {
           options.couter++;
           window.setTimeout(function() {
@@ -80,14 +83,7 @@
         }
         var animationDuration = options.particleAnimationDuration + GetRandom( 0, options.particleAnimationVariance );
         var particleSize      = GetRandom( options.particleSizeMin, options.particleSizeMax )
-        var div = jQuery('<img class="bubble '+options.ids+'" src="'+options.imgSource+'">').css({
-          position: 'absolute',
-          top:      options.particleSourceY,
-          left:     options.particleSourceX,
-          width:    particleSize,
-          height:   particleSize,
-          'z-index': 102
-        }).appendTo('body');
+        var div = getImage(options.ids, options.imgSource, options.particleSourceX, options.particleSourceY, particleSize);
         div.animate({
           left:     animationEndX,
           top:      [animationEndY, 'easeOutCubic']
@@ -95,14 +91,35 @@
           queue:    false,
           duration: animationDuration,
           complete: function() {
-            $(this).remove();
+            $(this).hide();
             if (options.RenewBubbles == 'on') {
               GenerateElement();
             } else {
             }
           }
         });	
-      }		
+      }
+
+        var currentImage = 0;
+
+        function getImage(ids, source, x, y, size) {
+
+            if (images.length < 10) {
+                images.push(jQuery('<img class="bubble ' + ids + '" src="' + source + '">').appendTo('body'));
+            }
+            var image = images[currentImage % 10];
+            image.css({
+                position:'absolute',
+                top:x,
+                left:y,
+                width:size,
+                height:size,
+                'z-index':102
+            });
+            image.show();
+            currentImage += 1;
+            return image;
+        }
       
       //-----------------------------------------------------------------------
       return this.each(function() {
